@@ -11,16 +11,15 @@ import java.net.SocketAddress;
  *
  */
 public interface IReliablePacket {
+	// TODO this is under heavy construction
 	
 	public InetAddress getAddress();
 	public byte[] getData();
-	public byte[] getId();
 	public int getLength();
 	public int getOffset();
 	public int getPort();
 	public SocketAddress getSocketAddress();
 	public void setAddress(InetAddress address);
-	public void setId(byte[] id);
 	public void setData(byte[] buf);
 	public void setData(byte[] buf, int offset, int length);
 	public void setLength(int length);

@@ -12,8 +12,8 @@ import java.net.SocketAddress;
  *
  */
 public class ReliablePacket implements IReliablePacket {
+	// TODO this is under heavy construction
 	
-	private static final int ID_SIZE = 16;
 	private DatagramPacket datagramPacket;
 	
 	public ReliablePacket(byte[] buf, int length) {
@@ -34,14 +34,6 @@ public class ReliablePacket implements IReliablePacket {
 	@Override
 	public byte[] getData() {
 		return datagramPacket.getData();
-	}
-
-	@Override
-	public byte[] getId() {
-		byte[] id = new byte[ID_SIZE];
-		byte[] buffer = datagramPacket.getData();
-		System.arraycopy(buffer,0,id,0,ID_SIZE);
-		return id;
 	}
 
 	/* (non-Javadoc)
@@ -98,13 +90,6 @@ public class ReliablePacket implements IReliablePacket {
 	@Override
 	public void setData(byte[] buf, int offset, int length) {
 		datagramPacket.setData(buf,offset,length);
-	}
-	
-	@Override
-	public void setId(byte[] id) {
-		if (id.length != ID_SIZE)
-			throw new IllegalArgumentException("The id was not " + ID_SIZE + " bytes long.");
-		// TODO set id
 	}
 
 	/* (non-Javadoc)
