@@ -3,7 +3,8 @@
 	<property file="build-${build.env}.properties"/>
 	
 	<property name="src.dir" value="src"/>
-	<property name="bin.dir" value="class"/>
+	<property name="build.dir" value="build"/>
+	<property name="bin.dir" value="${build.dir}/class"/>
 	<property name="doc.dir" value="doc"/>
 	<property name="javadoc.dir" value="${doc.dir}/api"/>
 	<property name="dist.dir" value="dist"/>
@@ -15,7 +16,7 @@
 	</target>
 	
 	<target name="javadoc">
-		<javadoc sourcepath="${src.dir}" destdir="${javadoc.dir}" sourcefiles="*"/>
+		<javadoc sourcepath="${src.dir}" destdir="${javadoc.dir}"/>
 	</target>
 	
 	<target name="dist">
@@ -29,7 +30,9 @@
 	</target>
 	
 	<target name="clean">
-		<delete dir="${bin.dir}"/>
+		<delete dir="${build.dir}"/>
+		<delete dir="${dist.dir}"/>
+		<delete dir="${javadoc.dir}"/>
 		<delete file="${bin.file}"/>
 	</target>
 </project>

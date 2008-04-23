@@ -15,6 +15,7 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -38,8 +39,12 @@ public class ReliableSocket implements IReliableSocket {
 	private ByteArrayOutputStream byteArrayOutputStream;
 	private ObjectOutputStream objectOutputStream;
 	private boolean connected = false;
+	private float reliability = MAX_RELIABILITY;
+	private Random randomizer;
 	
 	private static final int INITIAL_BUFFER_SIZE = 4096;
+	private static final float MAX_RELIABILITY = 1.0f;
+	private static final float MIN_RELIABILITY = 0.0f;
 	
 	public ReliableSocket() throws SocketException {
 		socket = new DatagramSocket();
@@ -201,6 +206,14 @@ public class ReliableSocket implements IReliableSocket {
 	}
 
 	/* (non-Javadoc)
+	 * @see cn.rudp.IReliableSocket#getReliability()
+	 */
+	@Override
+	public float getReliability() {
+		return reliability;
+	}
+
+	/* (non-Javadoc)
 	 * @see cn.rudp.IReliableSocket#getRemoteSocketAddress()
 	 */
 	@Override
@@ -306,6 +319,21 @@ public class ReliableSocket implements IReliableSocket {
 			throw new SocketException(e.getMessage());
 		}
 		socket.setReceiveBufferSize(receiveBufferSize);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.rudp.IReliableSocket#setReliability(float)
+	 */
+	@Override
+	public synchronized void setReliability(float f) {
+		if (f < MIN_RELIABILITY || f > MAX_RELIABILITY)
+			throw new IllegalArgumentException("The reliability must be an element of the interval [0..1].");
+		if (f == MAX_RELIABILITY) {
+			randomizer = null;
+		} else if (randomizer == null) {
+			randomizer = new Random();
+		}
+		reliability = f;
 	}
 
 	/* (non-Javadoc)

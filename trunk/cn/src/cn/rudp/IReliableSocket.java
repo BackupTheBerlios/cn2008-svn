@@ -16,30 +16,32 @@ import java.net.SocketException;
 public interface IReliableSocket {
 	// TODO this is under heavy construction
 	
-	public void bind(SocketAddress address) throws IOException;
-	public void close() throws IOException;
-	public void connect(SocketAddress address) throws IOException;
-	public void connect(SocketAddress address, int timeout) throws IOException;
-	public InetAddress getInetAddress();
-	public InetAddress getLocalAddress();
-	public int getLocalPort();
-	public SocketAddress getLocalSocketAddress();
-	public int getPort();
-	public int getReceiveBufferSize() throws SocketException;
-	public SocketAddress getRemoteSocketAddress();
-	public int getSendBufferSize() throws SocketException;
-	public int getSoTimeout() throws SocketException;
-	public boolean isBound();
-	public boolean isClosed();
-	public boolean isConnected();
-	public boolean isInputShutdown();
-	public boolean isOutputShutdown();
-	public void receive(IReliablePacket message) throws IOException;
-	public void send(IReliablePacket message) throws IOException;
-	public void setReceiveBufferSize(int size) throws SocketException;
-	public void setSendBufferSize(int size) throws SocketException;
-	public void setSoTimeout(int timeout) throws SocketException;
-	public void shutdownInput() throws IOException;
-	public void shutdownOutput() throws IOException;
+	void bind(SocketAddress address) throws IOException;
+	void close() throws IOException;
+	void connect(SocketAddress address) throws IOException;
+	void connect(SocketAddress address, int timeout) throws IOException;
+	InetAddress getInetAddress();
+	InetAddress getLocalAddress();
+	int getLocalPort();
+	SocketAddress getLocalSocketAddress();
+	int getPort();
+	int getReceiveBufferSize() throws SocketException;
+	float getReliability();
+	SocketAddress getRemoteSocketAddress();
+	int getSendBufferSize() throws SocketException;
+	int getSoTimeout() throws SocketException;
+	boolean isBound();
+	boolean isClosed();
+	boolean isConnected();
+	boolean isInputShutdown();
+	boolean isOutputShutdown();
+	void receive(IReliablePacket message) throws IOException;
+	void send(IReliablePacket message) throws IOException;
+	void setReceiveBufferSize(int size) throws SocketException;
+	void setReliability(float f);
+	void setSendBufferSize(int size) throws SocketException;
+	void setSoTimeout(int timeout) throws SocketException;
+	void shutdownInput() throws IOException;
+	void shutdownOutput() throws IOException;
 
 }
